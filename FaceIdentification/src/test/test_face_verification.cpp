@@ -108,34 +108,41 @@ std::string MODEL_DIR = "./model/";
 
 //std::string SrcPath = "D:/BaiduNetdiskDownload/lfw";
 //std::string DstPath = "D:/BaiduNetdiskDownload/lfw_Align";
-//std::string SrcPath = "D:/BaiduNetdiskDownload/lfw_Align";
-//std::string DstPath = "D:/BaiduNetdiskDownload/lfw_Align_half";
-//std::string SrcPath = "D:/BaiduNetdiskDownload/lfw_Align_half";
-//std::string DstPath = "D:/BaiduNetdiskDownload/lfw_Align_half_seq";
+std::string SrcPath = "D:/BaiduNetdiskDownload/lfw_Align";
+std::string DstPath = "D:/BaiduNetdiskDownload/lfw_Align_half";
+
+////std::string SrcPath = "D:/BaiduNetdiskDownload/lfw_Align_half";
+////std::string DstPath = "D:/BaiduNetdiskDownload/lfw_Align_half_seq";
 
 //std::string SrcPath = "D:/BaiduNetdiskDownload/WebFace_Align";
 //std::string DstPath = "D:/BaiduNetdiskDownload/WebFace_Align_half";
-std::string SrcPath = "D:/BaiduNetdiskDownload/WebFace_Align_half";
-std::string DstPath = "D:/BaiduNetdiskDownload/WebFace_Align_half_seq";
+////std::string SrcPath = "D:/BaiduNetdiskDownload/WebFace_Align_half";
+////std::string DstPath = "D:/BaiduNetdiskDownload/WebFace_Align_half_seq";
+
+int seq_label = 0;
+int seq_file = 1;
+#include <iostream>
+#include <iomanip>
 
 
-
-void createFilesList(string path, string lpath, vector<string>& files) {
+void createFilesList(string path, string lpath, int label, vector<string>& files) {
 	intptr_t hFile = 0;
 	struct _finddata_t fileinfo;
 	string p;
+	stringstream ss;
 	if ((hFile = _findfirst(p.assign(path).append("/*").c_str(), &fileinfo)) != -1) {
 		do {
 			if ((fileinfo.attrib & _A_SUBDIR)) {
 				if (strcmp(fileinfo.name, ".") != 0 && strcmp(fileinfo.name, "..") != 0) {
 					//cout << "mkdir " << p.assign(DstPath).append("/").append(fileinfo.name).c_str() << endl;
 					//CreateDirectory(p.assign(DstPath).append("/").append(fileinfo.name).c_str(), NULL);
-					createFilesList(p.assign(path).append("/").append(fileinfo.name), fileinfo.name, files);
+
+					createFilesList(p.assign(path).append("/").append(fileinfo.name), fileinfo.name, seq_label++,files);
 				}
 			}
 			else {
 				stringstream ss;
-				ss << atoi(lpath.c_str());
+				ss << label;
 				files.push_back(DstPath+"/"+p.assign(lpath).append("/").append(fileinfo.name)+" " + ss.str() );
 			}
 		} while (_findnext(hFile, &fileinfo) == 0);
@@ -164,45 +171,39 @@ void getAllFiles(string path, string lpath, vector<string>& files) {
     _findclose(hFile);
   }
 }
-int seq_label = 0;
-int seq_file = 1;
-#include <iostream>
-#include <iomanip>
-void getAllFiles_seq(string path, string lpath, string npath,vector<string>& files) {
-	intptr_t hFile = 0;
-	struct _finddata_t fileinfo;
-	string p;
-	stringstream ss;
-	int i = 12;
-	int j = 13;
-
-	if ((hFile = _findfirst(p.assign(path).append("/*").c_str(), &fileinfo)) != -1) {
-		do {
-			if ((fileinfo.attrib & _A_SUBDIR)) {
-				if (strcmp(fileinfo.name, ".") != 0 && strcmp(fileinfo.name, "..") != 0) {
-					ss <<  setw(4) << setfill('0') << seq_label++;
-					string& newpath = ss.str();
-					ss.str("");
-					cout << "create" + DstPath + "/" + newpath  << endl;
-					CreateDirectory((DstPath + "/" + newpath).c_str(), NULL);
-					seq_file = 1;
-					getAllFiles_seq(p.assign(path).append("/").append(fileinfo.name), fileinfo.name,newpath, files);
-				}
-			}
-			else {
-				ss << setw(4) << setfill('0') << seq_file++;
-				string& newfile = ss.str();
-				ss.str("");
-				cout << "copyfrom" + path + "/" + fileinfo.name << endl;
-				cout << "copyto" + DstPath + "/" + npath + "/" + newfile + ".jpg" << endl;
-				CopyFile((path + "/" + fileinfo.name).c_str(), (DstPath + "/" + npath + "/" + newfile + ".jpg").c_str(), FALSE);
-				files.push_back(p.assign(lpath).append("/").append(fileinfo.name));
-			}
-		} while (_findnext(hFile, &fileinfo) == 0);
-
-		_findclose(hFile);
-	}
-}
+////void getAllFiles_seq(string path, string lpath, string npath,vector<string>& files) {
+////	intptr_t hFile = 0;
+////	struct _finddata_t fileinfo;
+////	string p;
+////	stringstream ss;
+////
+////	if ((hFile = _findfirst(p.assign(path).append("/*").c_str(), &fileinfo)) != -1) {
+////		do {
+////			if ((fileinfo.attrib & _A_SUBDIR)) {
+////				if (strcmp(fileinfo.name, ".") != 0 && strcmp(fileinfo.name, "..") != 0) {
+////					ss <<  setw(4) << setfill('0') << seq_label++;
+////					string& newpath = ss.str();
+////					ss.str("");
+////					cout << "create" + DstPath + "/" + newpath  << endl;
+////					CreateDirectory((DstPath + "/" + newpath).c_str(), NULL);
+////					seq_file = 1;
+////					getAllFiles_seq(p.assign(path).append("/").append(fileinfo.name), fileinfo.name,newpath, files);
+////				}
+////			}
+////			else {
+////				ss << setw(4) << setfill('0') << seq_file++;
+////				string& newfile = ss.str();
+////				ss.str("");
+////				cout << "copyfrom" + path + "/" + fileinfo.name << endl;
+////				cout << "copyto" + DstPath + "/" + npath + "/" + newfile + ".jpg" << endl;
+////				CopyFile((path + "/" + fileinfo.name).c_str(), (DstPath + "/" + npath + "/" + newfile + ".jpg").c_str(), FALSE);
+////				files.push_back(p.assign(lpath).append("/").append(fileinfo.name));
+////			}
+////		} while (_findnext(hFile, &fileinfo) == 0);
+////
+////		_findclose(hFile);
+////	}
+////}
 int halfimage(string path) {
 	//cvNamedWindow("Imgae Before Processing");
 	//cvNamedWindow("Image After Processing"); 
@@ -226,21 +227,21 @@ int halfimage(string path) {
 int main(int argc, char* argv[]) {
   vector<string> files;
 
-  //createFilesList(DstPath, "", files);
-  //cout << files.size() << endl;
-  //ofstream ofile;
-  //ofile.open("caisa_train.txt");
-  //for (int i = 0; i < files.size(); i++)
-  //{
-	 // ofile << files[i].c_str() << endl;
-  //}
-  //ofile.close();
-  //return 0;
-
-  seq_label = 0;
-  seq_file = 0;
-  getAllFiles_seq(SrcPath, "","", files);
+  createFilesList(DstPath, "", 0, files);
+  cout << files.size() << endl;
+  ofstream ofile;
+  ofile.open("lfw_all.txt");
+  for (int i = 0; i < files.size(); i++)
+  {
+	  ofile << files[i].c_str() << endl;
+  }
+  ofile.close();
   return 0;
+
+  ////seq_label = 0;
+  ////seq_file = 0;
+  ////getAllFiles_seq(SrcPath, "","", files);
+  ////return 0;
 
   getAllFiles(SrcPath, "", files);
   cout << files.size() << endl;

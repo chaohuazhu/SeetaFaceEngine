@@ -21,7 +21,7 @@ for line in a:
 
 print len(lines)
 
-fileo1 = open("caisa_tran.txt","w")
+fileo1 = open("caisa_train.txt","w")
 for line in lines:
 	fileo1.write(line)
 
