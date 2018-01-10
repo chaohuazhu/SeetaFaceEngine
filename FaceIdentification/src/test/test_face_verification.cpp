@@ -113,8 +113,10 @@ std::string MODEL_DIR = "./model/";
 //std::string SrcPath = "D:/BaiduNetdiskDownload/lfw_Align_half";
 //std::string DstPath = "D:/BaiduNetdiskDownload/lfw_Align_half_seq";
 
-std::string SrcPath = "D:/BaiduNetdiskDownload/WebFace_Align";
-std::string DstPath = "D:/BaiduNetdiskDownload/WebFace_Align_half";
+//std::string SrcPath = "D:/BaiduNetdiskDownload/WebFace_Align";
+//std::string DstPath = "D:/BaiduNetdiskDownload/WebFace_Align_half";
+std::string SrcPath = "D:/BaiduNetdiskDownload/WebFace_Align_half";
+std::string DstPath = "D:/BaiduNetdiskDownload/WebFace_Align_half_seq";
 
 
 
@@ -162,7 +164,7 @@ void getAllFiles(string path, string lpath, vector<string>& files) {
     _findclose(hFile);
   }
 }
-int seq_dir = 1;
+int seq_label = 0;
 int seq_file = 1;
 #include <iostream>
 #include <iomanip>
@@ -178,7 +180,7 @@ void getAllFiles_seq(string path, string lpath, string npath,vector<string>& fil
 		do {
 			if ((fileinfo.attrib & _A_SUBDIR)) {
 				if (strcmp(fileinfo.name, ".") != 0 && strcmp(fileinfo.name, "..") != 0) {
-					ss <<  setw(4) << setfill('0') << seq_dir++;
+					ss <<  setw(4) << setfill('0') << seq_label++;
 					string& newpath = ss.str();
 					ss.str("");
 					cout << "create" + DstPath + "/" + newpath  << endl;
@@ -224,19 +226,19 @@ int halfimage(string path) {
 int main(int argc, char* argv[]) {
   vector<string> files;
 
-  createFilesList(DstPath, "", files);
-  cout << files.size() << endl;
-  ofstream ofile;
-  ofile.open("caisa_train.txt");
-  for (int i = 0; i < files.size(); i++)
-  {
-	  ofile << files[i].c_str() << endl;
-  }
-  ofile.close();
-  return 0;
+  //createFilesList(DstPath, "", files);
+  //cout << files.size() << endl;
+  //ofstream ofile;
+  //ofile.open("caisa_train.txt");
+  //for (int i = 0; i < files.size(); i++)
+  //{
+	 // ofile << files[i].c_str() << endl;
+  //}
+  //ofile.close();
+  //return 0;
 
-  seq_dir = 1;
-  seq_file = 1;
+  seq_label = 0;
+  seq_file = 0;
   getAllFiles_seq(SrcPath, "","", files);
   return 0;
 
@@ -346,11 +348,11 @@ int main(int argc, char* argv[]) {
 	  cv::Mat gallery_img_crop_color(256, 256, CV_8UC(3));
 	  ImageData gallery_img_data_crop_color(256,256, 3);
 	  gallery_img_data_crop_color.data = gallery_img_crop_color.data;
-
+	  cout << "1111111111" << endl;
 	  // Detect faces
 	  std::vector<seeta::FaceInfo> gallery_faces = detector.Detect(gallery_img_data_gray);
 	  int32_t gallery_face_num = static_cast<int32_t>(gallery_faces.size());
-
+	  cout << "11111111112" << endl;
 
 	  if (gallery_face_num == 0 )
 	  {
@@ -358,15 +360,17 @@ int main(int argc, char* argv[]) {
 		  //return 0;
 		  continue;
 	  }
-
+	  cout << "11111111113" << endl;
 
 	  // Detect 5 facial landmarks
 	  seeta::FacialLandmark gallery_points[5];
 	  point_detector.PointDetectLandmarks(gallery_img_data_gray, gallery_faces[0], gallery_points);
-
+	  cout << "11111111114" << endl;
 
 	  face_recognizer.CropFace(gallery_img_data_color, gallery_points, gallery_img_data_crop_color);
+	  cout << "11111111115" << endl;
 
+	  cout << "111111111156" + DstPath + "/" + files[i] << endl;
 
 	   //show crop face
 	  //cv::imshow("crop face", gallery_img_crop_color);
@@ -374,7 +378,7 @@ int main(int argc, char* argv[]) {
 	  //cv::destroyWindow("crop face");
 
 	  cv::imwrite(DstPath+"/"+files[i], gallery_img_crop_color);
-
+	  cout << "11111111116" + DstPath + "/" + files[i] << endl;
 
   }
   return 0;
