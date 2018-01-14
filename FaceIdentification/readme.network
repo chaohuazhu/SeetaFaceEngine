@@ -1,0 +1,461 @@
+Creating Common net ...
+subnet:11 in:1 out:1
+	subnet initialize: 0
+	Creating Eltwise net ...
+	op:BAIS_ADDER
+	Eltwise net blobs[0]: (1,3,256,256)
+	subnet:0 in:1 out:1
+	subnet initialize: 1
+	Creating Pad net ...
+	left_ = right_ = bottom_ = top_ -14
+	subnet:0 in:1 out:1
+	subnet initialize: 2
+	Creating Common net ...
+	subnet:4 in:1 out:1
+		subnet initialize: 0
+		Creating Conv net ...
+		stride_h:4
+		Conv net blobs[0]: (48,3,9,9)
+		subnet:0 in:1 out:1
+		subnet initialize: 1
+		Creating Eltwise net ...
+		op:BAIS_ADDER
+		Eltwise net blobs[0]: (1,48,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 2
+		Creating Bn net ...
+		epsilon 1e-05
+		Bn net blobs[0]: (1,48,1,1)
+		Bn net blobs[1]: (1,48,1,1)
+		Bn net blobs[2]: (1,1,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 3
+		Creating MaxPooling net ...
+		kernel_h = kernel_w = 3,stride_h = stride_w = 2
+		subnet:0 in:1 out:1
+		input connections: 0,0 connect to father: 0
+		input connections: 1,0 connect to subnet: 0,0
+		input connections: 2,0 connect to subnet: 1,0
+		input connections: 3,0 connect to subnet: 2,0
+		output connections: 0 connect to subnet: 3,0
+	subnet initialize: 3
+	Creating Common net ...
+	subnet:5 in:1 out:1
+		subnet initialize: 0
+		Creating Pad net ...
+		left_ = right_ = bottom_ = top_ 1
+		subnet:0 in:1 out:1
+		subnet initialize: 1
+		Creating Conv net ...
+		stride_h:1
+		Conv net blobs[0]: (128,48,3,3)
+		subnet:0 in:1 out:1
+		subnet initialize: 2
+		Creating Eltwise net ...
+		op:BAIS_ADDER
+		Eltwise net blobs[0]: (1,128,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 3
+		Creating Bn net ...
+		epsilon 1e-05
+		Bn net blobs[0]: (1,128,1,1)
+		Bn net blobs[1]: (1,128,1,1)
+		Bn net blobs[2]: (1,1,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 4
+		Creating MaxPooling net ...
+		kernel_h = kernel_w = 1,stride_h = stride_w = 1
+		subnet:0 in:1 out:1
+		input connections: 0,0 connect to father: 0
+		input connections: 1,0 connect to subnet: 0,0
+		input connections: 2,0 connect to subnet: 1,0
+		input connections: 3,0 connect to subnet: 2,0
+		input connections: 4,0 connect to subnet: 3,0
+		output connections: 0 connect to subnet: 4,0
+	subnet initialize: 4
+	Creating Common net ...
+	subnet:5 in:1 out:1
+		subnet initialize: 0
+		Creating Pad net ...
+		left_ = right_ = bottom_ = top_ 1
+		subnet:0 in:1 out:1
+		subnet initialize: 1
+		Creating Conv net ...
+		stride_h:1
+		Conv net blobs[0]: (128,128,3,3)
+		subnet:0 in:1 out:1
+		subnet initialize: 2
+		Creating Eltwise net ...
+		op:BAIS_ADDER
+		Eltwise net blobs[0]: (1,128,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 3
+		Creating Bn net ...
+		epsilon 1e-05
+		Bn net blobs[0]: (1,128,1,1)
+		Bn net blobs[1]: (1,128,1,1)
+		Bn net blobs[2]: (1,1,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 4
+		Creating MaxPooling net ...
+		kernel_h = kernel_w = 3,stride_h = stride_w = 2
+		subnet:0 in:1 out:1
+		input connections: 0,0 connect to father: 0
+		input connections: 1,0 connect to subnet: 0,0
+		input connections: 2,0 connect to subnet: 1,0
+		input connections: 3,0 connect to subnet: 2,0
+		input connections: 4,0 connect to subnet: 3,0
+		output connections: 0 connect to subnet: 4,0
+	subnet initialize: 5
+	Creating Common net ...
+	subnet:5 in:1 out:1
+		subnet initialize: 0
+		Creating Pad net ...
+		left_ = right_ = bottom_ = top_ 1
+		subnet:0 in:1 out:1
+		subnet initialize: 1
+		Creating Conv net ...
+		stride_h:1
+		Conv net blobs[0]: (256,128,3,3)
+		subnet:0 in:1 out:1
+		subnet initialize: 2
+		Creating Eltwise net ...
+		op:BAIS_ADDER
+		Eltwise net blobs[0]: (1,256,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 3
+		Creating Bn net ...
+		epsilon 1e-05
+		Bn net blobs[0]: (1,256,1,1)
+		Bn net blobs[1]: (1,256,1,1)
+		Bn net blobs[2]: (1,1,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 4
+		Creating MaxPooling net ...
+		kernel_h = kernel_w = 1,stride_h = stride_w = 1
+		subnet:0 in:1 out:1
+		input connections: 0,0 connect to father: 0
+		input connections: 1,0 connect to subnet: 0,0
+		input connections: 2,0 connect to subnet: 1,0
+		input connections: 3,0 connect to subnet: 2,0
+		input connections: 4,0 connect to subnet: 3,0
+		output connections: 0 connect to subnet: 4,0
+	subnet initialize: 6
+	Creating Common net ...
+	subnet:5 in:1 out:1
+		subnet initialize: 0
+		Creating Pad net ...
+		left_ = right_ = bottom_ = top_ 1
+		subnet:0 in:1 out:1
+		subnet initialize: 1
+		Creating Conv net ...
+		stride_h:1
+		Conv net blobs[0]: (192,256,3,3)
+		subnet:0 in:1 out:1
+		subnet initialize: 2
+		Creating Eltwise net ...
+		op:BAIS_ADDER
+		Eltwise net blobs[0]: (1,192,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 3
+		Creating Bn net ...
+		epsilon 1e-05
+		Bn net blobs[0]: (1,192,1,1)
+		Bn net blobs[1]: (1,192,1,1)
+		Bn net blobs[2]: (1,1,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 4
+		Creating MaxPooling net ...
+		kernel_h = kernel_w = 1,stride_h = stride_w = 1
+		subnet:0 in:1 out:1
+		input connections: 0,0 connect to father: 0
+		input connections: 1,0 connect to subnet: 0,0
+		input connections: 2,0 connect to subnet: 1,0
+		input connections: 3,0 connect to subnet: 2,0
+		input connections: 4,0 connect to subnet: 3,0
+		output connections: 0 connect to subnet: 4,0
+	subnet initialize: 7
+	Creating Common net ...
+	subnet:5 in:1 out:1
+		subnet initialize: 0
+		Creating Pad net ...
+		left_ = right_ = bottom_ = top_ 1
+		subnet:0 in:1 out:1
+		subnet initialize: 1
+		Creating Conv net ...
+		stride_h:1
+		Conv net blobs[0]: (192,192,3,3)
+		subnet:0 in:1 out:1
+		subnet initialize: 2
+		Creating Eltwise net ...
+		op:BAIS_ADDER
+		Eltwise net blobs[0]: (1,192,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 3
+		Creating Bn net ...
+		epsilon 1e-05
+		Bn net blobs[0]: (1,192,1,1)
+		Bn net blobs[1]: (1,192,1,1)
+		Bn net blobs[2]: (1,1,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 4
+		Creating MaxPooling net ...
+		kernel_h = kernel_w = 1,stride_h = stride_w = 1
+		subnet:0 in:1 out:1
+		input connections: 0,0 connect to father: 0
+		input connections: 1,0 connect to subnet: 0,0
+		input connections: 2,0 connect to subnet: 1,0
+		input connections: 3,0 connect to subnet: 2,0
+		input connections: 4,0 connect to subnet: 3,0
+		output connections: 0 connect to subnet: 4,0
+	subnet initialize: 8
+	Creating Common net ...
+	subnet:5 in:1 out:1
+		subnet initialize: 0
+		Creating Pad net ...
+		left_ = right_ = bottom_ = top_ 1
+		subnet:0 in:1 out:1
+		subnet initialize: 1
+		Creating Conv net ...
+		stride_h:1
+		Conv net blobs[0]: (128,192,3,3)
+		subnet:0 in:1 out:1
+		subnet initialize: 2
+		Creating Eltwise net ...
+		op:BAIS_ADDER
+		Eltwise net blobs[0]: (1,128,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 3
+		Creating Bn net ...
+		epsilon 1e-05
+		Bn net blobs[0]: (1,128,1,1)
+		Bn net blobs[1]: (1,128,1,1)
+		Bn net blobs[2]: (1,1,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 4
+		Creating MaxPooling net ...
+		kernel_h = kernel_w = 3,stride_h = stride_w = 2
+		subnet:0 in:1 out:1
+		input connections: 0,0 connect to father: 0
+		input connections: 1,0 connect to subnet: 0,0
+		input connections: 2,0 connect to subnet: 1,0
+		input connections: 3,0 connect to subnet: 2,0
+		input connections: 4,0 connect to subnet: 3,0
+		output connections: 0 connect to subnet: 4,0
+	subnet initialize: 9
+	Creating Common net ...
+	subnet:4 in:1 out:1
+		subnet initialize: 0
+		Creating InnerProduct net ...
+		InnerProduct net blobs[0]: (4096,4608,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 1
+		Creating Eltwise net ...
+		op:BAIS_ADDER
+		Eltwise net blobs[0]: (1,4096,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 2
+		Creating Bn net ...
+		epsilon 1e-05
+		Bn net blobs[0]: (1,4096,1,1)
+		Bn net blobs[1]: (1,4096,1,1)
+		Bn net blobs[2]: (1,1,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 3
+		Creating MaxPooling net ...
+		kernel_h = kernel_w = 1,stride_h = stride_w = 1
+		subnet:0 in:1 out:1
+		input connections: 0,0 connect to father: 0
+		input connections: 1,0 connect to subnet: 0,0
+		input connections: 2,0 connect to subnet: 1,0
+		input connections: 3,0 connect to subnet: 2,0
+		output connections: 0 connect to subnet: 3,0
+	subnet initialize: 10
+	Creating Common net ...
+	subnet:4 in:1 out:1
+		subnet initialize: 0
+		Creating InnerProduct net ...
+		InnerProduct net blobs[0]: (2048,4096,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 1
+		Creating Eltwise net ...
+		op:BAIS_ADDER
+		Eltwise net blobs[0]: (1,2048,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 2
+		Creating Bn net ...
+		epsilon 1e-05
+		Bn net blobs[0]: (1,2048,1,1)
+		Bn net blobs[1]: (1,2048,1,1)
+		Bn net blobs[2]: (1,1,1,1)
+		subnet:0 in:1 out:1
+		subnet initialize: 3
+		Creating MaxPooling net ...
+		kernel_h = kernel_w = 1,stride_h = stride_w = 1
+		subnet:0 in:1 out:1
+		input connections: 0,0 connect to father: 0
+		input connections: 1,0 connect to subnet: 0,0
+		input connections: 2,0 connect to subnet: 1,0
+		input connections: 3,0 connect to subnet: 2,0
+		output connections: 0 connect to subnet: 3,0
+	input connections: 0,0 connect to father: 0
+	input connections: 1,0 connect to subnet: 0,0
+	input connections: 2,0 connect to subnet: 1,0
+	input connections: 3,0 connect to subnet: 2,0
+	input connections: 4,0 connect to subnet: 3,0
+	input connections: 5,0 connect to subnet: 4,0
+	input connections: 6,0 connect to subnet: 5,0
+	input connections: 7,0 connect to subnet: 6,0
+	input connections: 8,0 connect to subnet: 7,0
+	input connections: 9,0 connect to subnet: 8,0
+	input connections: 10,0 connect to subnet: 9,0
+	output connections: 0 connect to subnet: 10,0
+detect face 2 1
+face detect score: 17.995
+face detect score: 25.2956
+face detect score: 25.4328
+CropFace
+Alignment input height:250 width:250
+CropFace
+Alignment input height:250 width:250
+Alignment input height:250 width:250
+eltwise: input blob: (1,3,256,256)
+eltwise: bias blob: (1,3,256,256)
+eltwise: output blob: (1,3,256,256)
+pad: input blob: (1,3,256,256)left: -14
+pad: output blob: (1,3,228,228)
+conv: n,c,h,w stride 48,3,9,9,4
+conv: input blob: (1,3,228,228)
+conv: output blob: (1,48,55,55)
+eltwise: input blob: (1,48,55,55)
+eltwise: bias blob: (1,48,1,1)
+eltwise: output blob: (1,48,55,55)
+pad: input blob: (1,48,27,27)left: 1
+pad: output blob: (1,48,29,29)
+conv: n,c,h,w stride 128,48,3,3,1
+conv: input blob: (1,48,29,29)
+conv: output blob: (1,128,27,27)
+eltwise: input blob: (1,128,27,27)
+eltwise: bias blob: (1,128,1,1)
+eltwise: output blob: (1,128,27,27)
+pad: input blob: (1,128,27,27)left: 1
+pad: output blob: (1,128,29,29)
+conv: n,c,h,w stride 128,128,3,3,1
+conv: input blob: (1,128,29,29)
+conv: output blob: (1,128,27,27)
+eltwise: input blob: (1,128,27,27)
+eltwise: bias blob: (1,128,1,1)
+eltwise: output blob: (1,128,27,27)
+pad: input blob: (1,128,13,13)left: 1
+pad: output blob: (1,128,15,15)
+conv: n,c,h,w stride 256,128,3,3,1
+conv: input blob: (1,128,15,15)
+conv: output blob: (1,256,13,13)
+eltwise: input blob: (1,256,13,13)
+eltwise: bias blob: (1,256,1,1)
+eltwise: output blob: (1,256,13,13)
+pad: input blob: (1,256,13,13)left: 1
+pad: output blob: (1,256,15,15)
+conv: n,c,h,w stride 192,256,3,3,1
+conv: input blob: (1,256,15,15)
+conv: output blob: (1,192,13,13)
+eltwise: input blob: (1,192,13,13)
+eltwise: bias blob: (1,192,1,1)
+eltwise: output blob: (1,192,13,13)
+pad: input blob: (1,192,13,13)left: 1
+pad: output blob: (1,192,15,15)
+conv: n,c,h,w stride 192,192,3,3,1
+conv: input blob: (1,192,15,15)
+conv: output blob: (1,192,13,13)
+eltwise: input blob: (1,192,13,13)
+eltwise: bias blob: (1,192,1,1)
+eltwise: output blob: (1,192,13,13)
+pad: input blob: (1,192,13,13)left: 1
+pad: output blob: (1,192,15,15)
+conv: n,c,h,w stride 128,192,3,3,1
+conv: input blob: (1,192,15,15)
+conv: output blob: (1,128,13,13)
+eltwise: input blob: (1,128,13,13)
+eltwise: bias blob: (1,128,1,1)
+eltwise: output blob: (1,128,13,13)
+ip: input blob: (1,128,6,6)
+ip：output blob: (1,4096,1,1)
+eltwise: input blob: (1,4096,1,1)
+eltwise: bias blob: (1,4096,1,1)
+eltwise: output blob: (1,4096,1,1)
+ip: input blob: (1,4096,1,1)
+ip：output blob: (1,2048,1,1)
+eltwise: input blob: (1,2048,1,1)
+eltwise: bias blob: (1,2048,1,1)
+eltwise: output blob: (1,2048,1,1)
+Alignment input height:250 width:250
+eltwise: input blob: (1,3,256,256)
+eltwise: bias blob: (1,3,256,256)
+eltwise: output blob: (1,3,256,256)
+pad: input blob: (1,3,256,256)left: -14
+pad: output blob: (1,3,228,228)
+conv: n,c,h,w stride 48,3,9,9,4
+conv: input blob: (1,3,228,228)
+conv: output blob: (1,48,55,55)
+eltwise: input blob: (1,48,55,55)
+eltwise: bias blob: (1,48,1,1)
+eltwise: output blob: (1,48,55,55)
+pad: input blob: (1,48,27,27)left: 1
+pad: output blob: (1,48,29,29)
+conv: n,c,h,w stride 128,48,3,3,1
+conv: input blob: (1,48,29,29)
+conv: output blob: (1,128,27,27)
+eltwise: input blob: (1,128,27,27)
+eltwise: bias blob: (1,128,1,1)
+eltwise: output blob: (1,128,27,27)
+pad: input blob: (1,128,27,27)left: 1
+pad: output blob: (1,128,29,29)
+conv: n,c,h,w stride 128,128,3,3,1
+conv: input blob: (1,128,29,29)
+conv: output blob: (1,128,27,27)
+eltwise: input blob: (1,128,27,27)
+eltwise: bias blob: (1,128,1,1)
+eltwise: output blob: (1,128,27,27)
+pad: input blob: (1,128,13,13)left: 1
+pad: output blob: (1,128,15,15)
+conv: n,c,h,w stride 256,128,3,3,1
+conv: input blob: (1,128,15,15)
+conv: output blob: (1,256,13,13)
+eltwise: input blob: (1,256,13,13)
+eltwise: bias blob: (1,256,1,1)
+eltwise: output blob: (1,256,13,13)
+pad: input blob: (1,256,13,13)left: 1
+pad: output blob: (1,256,15,15)
+conv: n,c,h,w stride 192,256,3,3,1
+conv: input blob: (1,256,15,15)
+conv: output blob: (1,192,13,13)
+eltwise: input blob: (1,192,13,13)
+eltwise: bias blob: (1,192,1,1)
+eltwise: output blob: (1,192,13,13)
+pad: input blob: (1,192,13,13)left: 1
+pad: output blob: (1,192,15,15)
+conv: n,c,h,w stride 192,192,3,3,1
+conv: input blob: (1,192,15,15)
+conv: output blob: (1,192,13,13)
+eltwise: input blob: (1,192,13,13)
+eltwise: bias blob: (1,192,1,1)
+eltwise: output blob: (1,192,13,13)
+pad: input blob: (1,192,13,13)left: 1
+pad: output blob: (1,192,15,15)
+conv: n,c,h,w stride 128,192,3,3,1
+conv: input blob: (1,192,15,15)
+conv: output blob: (1,128,13,13)
+eltwise: input blob: (1,128,13,13)
+eltwise: bias blob: (1,128,1,1)
+eltwise: output blob: (1,128,13,13)
+ip: input blob: (1,128,6,6)
+ip：output blob: (1,4096,1,1)
+eltwise: input blob: (1,4096,1,1)
+eltwise: bias blob: (1,4096,1,1)
+eltwise: output blob: (1,4096,1,1)
+ip: input blob: (1,4096,1,1)
+ip：output blob: (1,2048,1,1)
+eltwise: input blob: (1,2048,1,1)
+eltwise: bias blob: (1,2048,1,1)
+eltwise: output blob: (1,2048,1,1)
+0.374362

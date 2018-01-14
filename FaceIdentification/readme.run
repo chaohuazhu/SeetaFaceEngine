@@ -1,0 +1,153 @@
+0--------------------------------------
+eltwise: input blob: (1,3,256,256)
+eltwise: bias blob: (1,3,256,256)
+eltwise: output blob: (1,3,256,256)
+1--------------------------------------
+pad: input blob: (1,3,256,256)left: -14
+pad: output blob: (1,3,228,228)
+2--------------------------------------
+  conv: n,c,h,w stride 48,3,9,9,4
+  conv: input blob: (1,3,228,228)
+  conv: output blob: (1,48,55,55)
+  eltwise: input blob: (1,48,55,55)
+  eltwise: bias blob: (1,48,1,1)
+  eltwise: output blob: (1,48,55,55)
+3---------------------------------------
+  pad: input blob: (1,48,27,27)left: 1
+  pad: output blob: (1,48,29,29)
+  conv: n,c,h,w stride 128,48,3,3,1
+  conv: input blob: (1,48,29,29)
+  conv: output blob: (1,128,27,27)
+  eltwise: input blob: (1,128,27,27)
+  eltwise: bias blob: (1,128,1,1)
+  eltwise: output blob: (1,128,27,27)
+4--------------------------------------
+pad: input blob: (1,128,27,27)left: 1
+pad: output blob: (1,128,29,29)
+conv: n,c,h,w stride 128,128,3,3,1
+conv: input blob: (1,128,29,29)
+conv: output blob: (1,128,27,27)
+eltwise: input blob: (1,128,27,27)
+eltwise: bias blob: (1,128,1,1)
+eltwise: output blob: (1,128,27,27)
+5--------------------------------------
+pad: input blob: (1,128,13,13)left: 1
+pad: output blob: (1,128,15,15)
+conv: n,c,h,w stride 256,128,3,3,1
+conv: input blob: (1,128,15,15)
+conv: output blob: (1,256,13,13)
+eltwise: input blob: (1,256,13,13)
+eltwise: bias blob: (1,256,1,1)
+eltwise: output blob: (1,256,13,13)
+6--------------------------------------
+pad: input blob: (1,256,13,13)left: 1
+pad: output blob: (1,256,15,15)
+conv: n,c,h,w stride 192,256,3,3,1
+conv: input blob: (1,256,15,15)
+conv: output blob: (1,192,13,13)
+eltwise: input blob: (1,192,13,13)
+eltwise: bias blob: (1,192,1,1)
+eltwise: output blob: (1,192,13,13)
+7--------------------------------------
+pad: input blob: (1,192,13,13)left: 1
+pad: output blob: (1,192,15,15)
+conv: n,c,h,w stride 192,192,3,3,1
+conv: input blob: (1,192,15,15)
+conv: output blob: (1,192,13,13)
+eltwise: input blob: (1,192,13,13)
+eltwise: bias blob: (1,192,1,1)
+eltwise: output blob: (1,192,13,13)
+8--------------------------------------
+pad: input blob: (1,192,13,13)left: 1
+pad: output blob: (1,192,15,15)
+conv: n,c,h,w stride 128,192,3,3,1
+conv: input blob: (1,192,15,15)
+conv: output blob: (1,128,13,13)
+eltwise: input blob: (1,128,13,13)
+eltwise: bias blob: (1,128,1,1)
+eltwise: output blob: (1,128,13,13)
+9--------------------------------------
+ip: input blob: (1,128,6,6)
+ip£ºoutput blob: (1,4096,1,1)
+eltwise: input blob: (1,4096,1,1)
+eltwise: bias blob: (1,4096,1,1)
+eltwise: output blob: (1,4096,1,1)
+10--------------------------------------
+ip: input blob: (1,4096,1,1)
+ip£ºoutput blob: (1,2048,1,1)
+eltwise: input blob: (1,2048,1,1)
+eltwise: bias blob: (1,2048,1,1)
+eltwise: output blob: (1,2048,1,1)
+
+
+Alignment input height:250 width:250
+eltwise: input blob: (1,3,256,256)
+eltwise: bias blob: (1,3,256,256)
+eltwise: output blob: (1,3,256,256)
+pad: input blob: (1,3,256,256)left: -14
+pad: output blob: (1,3,228,228)
+conv: n,c,h,w stride 48,3,9,9,4
+conv: input blob: (1,3,228,228)
+conv: output blob: (1,48,55,55)
+eltwise: input blob: (1,48,55,55)
+eltwise: bias blob: (1,48,1,1)
+eltwise: output blob: (1,48,55,55)
+pad: input blob: (1,48,27,27)left: 1
+pad: output blob: (1,48,29,29)
+conv: n,c,h,w stride 128,48,3,3,1
+conv: input blob: (1,48,29,29)
+conv: output blob: (1,128,27,27)
+eltwise: input blob: (1,128,27,27)
+eltwise: bias blob: (1,128,1,1)
+eltwise: output blob: (1,128,27,27)
+pad: input blob: (1,128,27,27)left: 1
+pad: output blob: (1,128,29,29)
+conv: n,c,h,w stride 128,128,3,3,1
+conv: input blob: (1,128,29,29)
+conv: output blob: (1,128,27,27)
+eltwise: input blob: (1,128,27,27)
+eltwise: bias blob: (1,128,1,1)
+eltwise: output blob: (1,128,27,27)
+pad: input blob: (1,128,13,13)left: 1
+pad: output blob: (1,128,15,15)
+conv: n,c,h,w stride 256,128,3,3,1
+conv: input blob: (1,128,15,15)
+conv: output blob: (1,256,13,13)
+eltwise: input blob: (1,256,13,13)
+eltwise: bias blob: (1,256,1,1)
+eltwise: output blob: (1,256,13,13)
+pad: input blob: (1,256,13,13)left: 1
+pad: output blob: (1,256,15,15)
+conv: n,c,h,w stride 192,256,3,3,1
+conv: input blob: (1,256,15,15)
+conv: output blob: (1,192,13,13)
+eltwise: input blob: (1,192,13,13)
+eltwise: bias blob: (1,192,1,1)
+eltwise: output blob: (1,192,13,13)
+pad: input blob: (1,192,13,13)left: 1
+pad: output blob: (1,192,15,15)
+conv: n,c,h,w stride 192,192,3,3,1
+conv: input blob: (1,192,15,15)
+conv: output blob: (1,192,13,13)
+eltwise: input blob: (1,192,13,13)
+eltwise: bias blob: (1,192,1,1)
+eltwise: output blob: (1,192,13,13)
+pad: input blob: (1,192,13,13)left: 1
+pad: output blob: (1,192,15,15)
+conv: n,c,h,w stride 128,192,3,3,1
+conv: input blob: (1,192,15,15)
+conv: output blob: (1,128,13,13)
+eltwise: input blob: (1,128,13,13)
+eltwise: bias blob: (1,128,1,1)
+eltwise: output blob: (1,128,13,13)
+ip: input blob: (1,128,6,6)
+ip£ºoutput blob: (1,4096,1,1)
+eltwise: input blob: (1,4096,1,1)
+eltwise: bias blob: (1,4096,1,1)
+eltwise: output blob: (1,4096,1,1)
+ip: input blob: (1,4096,1,1)
+ip£ºoutput blob: (1,2048,1,1)
+eltwise: input blob: (1,2048,1,1)
+eltwise: bias blob: (1,2048,1,1)
+eltwise: output blob: (1,2048,1,1)
+0.374362
