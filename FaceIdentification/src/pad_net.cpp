@@ -32,9 +32,11 @@
 #include "pad_net.h"
 
 #include <algorithm>
-
+#include <iostream>
+using namespace std;
 void PadNet::SetUp() {
   left_ = right_ = bottom_ = top_ = *(int*)(this->hyper_param()->param("pad"));
+  cout << "left_ = right_ = bottom_ = top_ " << left_ << endl;
   // check input and output blob size
   this->nets().resize(0);
   this->params().resize(0);
@@ -55,6 +57,8 @@ void PadNet::Execute() {
 
   LOG(DEBUG) << "input blob: (" << num << "," << channels << "," << src_h 
     << "," << src_w << ")";
+  cout << "pad: " << "input blob: (" << num << "," << channels << "," << src_h
+	  << "," << src_w << ")" << "left: " << top_ << endl;
 
   int dst_w = src_w + left_ + right_;
   int dst_h = src_h + top_ + bottom_;
@@ -89,6 +93,8 @@ void PadNet::Execute() {
   }
   output->CopyData(num, channels, dst_h, dst_w, data);
   delete[] data;
+  cout << "pad: " << "output blob: (" << num << "," << channels << "," << dst_h
+	  << "," << dst_w << ")" << endl;
   CheckOutput();
 }
 

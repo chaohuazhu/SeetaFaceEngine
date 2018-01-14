@@ -54,7 +54,8 @@ CommonNet::~CommonNet() {
 
   params_.clear();
 }
-
+#include <iostream>
+using namespace std;
 std::shared_ptr<Net> CommonNet::Load(FILE* file) {
   // Todo: assert file format
   int len;
@@ -64,6 +65,7 @@ std::shared_ptr<Net> CommonNet::Load(FILE* file) {
   CHECK_EQ(fread(net_type, sizeof(char), len, file), len);
   net_type[len] = '\0';
   LOG(INFO) << "Creating " << net_type << " net ...";
+  cout << "Creating " << net_type << " net ..." << endl;
   std::shared_ptr<Net> net = NetRegistry::CreateNet(net_type);
   // params
   net->hyper_param()->Load(file);
@@ -75,12 +77,15 @@ std::shared_ptr<Net> CommonNet::Load(FILE* file) {
     Blob param(file);
     LOG(INFO) << net_type << " net blobs[" << i << "]: (" << param.num() << "," 
     << param.channels() << "," << param.height() << ","<< param.width() << ")";
+	cout << net_type << " net blobs[" << i << "]: (" << param.num() << ","
+		<< param.channels() << "," << param.height() << "," << param.width() << ")" << endl;
     net->params(i)->SetData(param);
   }
 
   int num_subnet = net->nets().size();
   int num_in = net->input_blobs().size();
   int num_out = net->output_blobs().size();
+  cout << "subnet:" << num_subnet << " in:" << num_in << " out:" << num_out << endl;
  
   std::vector<std::shared_ptr<Net> >& nets = net->nets();
   std::vector<Blob>& input_blobs = net->input_blobs();
@@ -90,6 +95,7 @@ std::shared_ptr<Net> CommonNet::Load(FILE* file) {
 
   // subnet
   for (int i = 0; i < num_subnet; ++ i) {
+	cout << "subnet initialize: " << i << endl;
     nets[i] = Load(file);
     nets[i]->SetFather(net.get());
   }
@@ -109,11 +115,13 @@ std::shared_ptr<Net> CommonNet::Load(FILE* file) {
         CHECK_EQ(fread(&blob_idx, sizeof(int), 1, file), 1);
         if (net_idx == -1) { // connected to father net
           input_plugs[blob_idx].push_back(nets[i]->input_blobs(j));
+		  cout << "input connections: " << i << "," << j << " connect to father: " << blob_idx << endl;
         }
         else {
           nets[net_idx]->output_plugs(blob_idx).push_back(
             nets[i]->input_blobs(j)); 
-        }
+		  cout << "input connections: " << i << "," << j << " connect to subnet: " << net_idx << "," << blob_idx << endl;
+		}
       }
     }
     // get output blobs
@@ -123,7 +131,8 @@ std::shared_ptr<Net> CommonNet::Load(FILE* file) {
       CHECK_EQ(fread(&blob_idx, sizeof(int), 1, file), 1);
       nets[net_idx]->output_plugs(blob_idx).push_back(
           &(output_blobs[i]));
-    }
+	  cout << "output connections: " << i << " connect to " << "subnet: " << net_idx << "," << blob_idx << endl;
+	}
     for (int i = 0; i < num_subnet; ++ i) {
       if (nets[i]->num_output() > 0) {
         LOG(ERROR) << "There are " << nets[i]->num_output() 

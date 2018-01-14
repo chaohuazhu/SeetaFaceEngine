@@ -30,9 +30,11 @@
  */
 
 #include "eltwise_net.h"
-
+#include <iostream>
+using namespace std;
 void EltwiseNet::SetUp() {
   op_ = *(std::string*)(this->hyper_param()->param("eltwise_op"));
+  cout << "op:" << op_ << endl;
   if (op_ == "SCALE") {
     scale_ = *(float*)(this->hyper_param()->param("scale"));
     this->nets().resize(0);
@@ -64,7 +66,8 @@ void EltwiseNet::SetUp() {
   // PROD
   // MAX
 }
-
+#include <stdlib.h>
+#include <fstream>
 void EltwiseNet::Execute() {
   CheckInput();
   if (op_ == "BAIS_ADDER") {
@@ -83,8 +86,35 @@ void EltwiseNet::Execute() {
       << height << "," << width << ")";
     LOG(DEBUG) << "bias blob: (" << bias->num() << "," << bias->channels() 
       << "," << bias->height() << "," << bias->width() << ")";
-    
-    float* const dst_head = new float[num*channels*height*width];
+
+	cout << "eltwise: " << "input blob: (" << num << "," << input->channels() << ","
+		<< height << "," << width << ")" << endl;
+	cout << "eltwise: " << "bias blob: (" << bias->num() << "," << bias->channels()
+		<< "," << bias->height() << "," << bias->width() << ")" << endl;
+
+	{
+		char* const char_dst_head = new char[num*channels*height*width];
+
+		int bn = (bias->num() != 1);
+		int bc = (bias->channels() != 1);
+		int bh = (bias->height() != 1);
+		int bw = (bias->width() != 1);
+		for (int n = 0, offset = 0; n < num; ++n) {
+			for (int c = 0; c < channels; ++c) {
+				for (int h = 0; h < height; ++h) {
+					for (int w = 0; w < width; ++w, ++offset) {
+						char_dst_head[offset] = (*bias)[bias->offset(n*bn, c*bc, h*bh, w*bw)];
+					}
+				}
+			}
+		}
+		std::ofstream fout("a.dat", std::ios::binary);
+		fout.write(char_dst_head, sizeof(char) * (num*channels*height*width));
+		fout.close();
+		exit(0);
+	}
+
+	float* const dst_head = new float[num*channels*height*width];
 
     int bn = (bias->num() != 1);
     int bc = (bias->channels() != 1);
@@ -103,6 +133,8 @@ void EltwiseNet::Execute() {
 
     output->CopyData(num, channels, height, width, dst_head);    
 	delete[] dst_head;
+	cout << "eltwise: " << "output blob: (" << num << "," << channels << ","
+		<< height << "," << width << ")" << endl;
   }
   else if (op_ == "SCALE") {
     const Blob* const input = this->input_blobs(0);

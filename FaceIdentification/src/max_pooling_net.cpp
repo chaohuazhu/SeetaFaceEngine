@@ -34,13 +34,14 @@
 #include <math.h>
 
 #include <algorithm>
-
+#include <iostream>
+using namespace std;
 void MaxPoolingNet::SetUp() {
   kernel_h_ = kernel_w_ = 
       *(int*)(this->hyper_param()->param("kernel_size"));
   stride_h_ = stride_w_ = 
       *(int*)(this->hyper_param()->param("stride"));
-
+  cout << "kernel_h = kernel_w = " << kernel_h_ << "," << "stride_h = stride_w = " << stride_h_ << endl;
   // check input and output blob size
   this->input_blobs().resize(1);
   this->output_blobs().resize(1);

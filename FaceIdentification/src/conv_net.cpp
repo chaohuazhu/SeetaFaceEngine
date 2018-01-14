@@ -34,11 +34,12 @@
 #ifdef __VIPL_LOG__
 #include <ctime>
 #endif
-
+#include <iostream>
+using namespace std;
 void ConvNet::SetUp() {
   stride_h_ = stride_w_ =
       *(int*)(this->hyper_param()->param("stride"));
-
+  cout << "stride_h:" << stride_h_ << endl;
   // check input and output blob size
   this->input_blobs().resize(1);
   this->output_blobs().resize(1);
@@ -67,9 +68,13 @@ void ConvNet::Execute() {
   int dst_channels = weight->num();
   int kernel_h = weight->height();
   int kernel_w = weight->width();
+  cout << "conv: " << "n,c,h,w stride " << dst_channels << "," << src_channels << "," << kernel_h << "," << kernel_w << "," << stride_h_<< endl;
 
   LOG(DEBUG) << "input blob: (" <<src_num << "," << src_channels << "," << src_h
     << "," << src_w << ")";
+  cout << "conv: " << "input blob: (" << src_num << "," << src_channels << "," << src_h
+	  << "," << src_w << ")" << endl;
+
 
   int dst_h = (src_h - kernel_h) / stride_h_ + 1;
   int dst_w = (src_w - kernel_w) / stride_w_ + 1;
@@ -134,8 +139,10 @@ void ConvNet::Execute() {
   delete[] mat_head;
   delete[] dst_head;
 
-  LOG(DEBUG) << "output blob: (" << output->num() << "," << output->channels()
+  LOG(DEBUG) << "conv: " << "output blob: (" << output->num() << "," << output->channels()
     << "," << output->height() << "," << output->width() << ")";
+  cout << "conv: " << "output blob: (" << output->num() << "," << output->channels()
+	  << "," << output->height() << "," << output->width() << ")" << endl;
   CheckOutput();
 }
 

@@ -31,10 +31,11 @@
 
 #include "bn_net.h"
 #include "math.h"
-
+#include <iostream>
+using namespace std;
 void BnNet::SetUp() {
   epsilon_ = *(float*)(this->hyper_param()->param("epsilon"));
- 
+  cout << "epsilon " << epsilon_ << endl;
  //check input and output blob size
   this->input_blobs().resize(1);
   this->output_blobs().resize(1);

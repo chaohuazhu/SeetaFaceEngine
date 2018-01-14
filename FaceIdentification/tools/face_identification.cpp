@@ -28,7 +28,9 @@
  * Note: the above information must be kept whenever or wherever the codes are used.
  *
  */
-
+#include <windows.h>
+#include<iostream>
+using namespace std;
 #include "face_identification.h"
 #include "recognizer.h"
 
@@ -71,6 +73,7 @@ uint32_t FaceIdentification::crop_channels() {
 uint8_t FaceIdentification::CropFace(const ImageData &src_image,
     const FacialLandmark* llpoint,
     const ImageData &dst_image) {
+	cout << "CropFace" << endl;
   if (src_image.num_channels != recognizer->crop_channels() ||
     src_image.data == NULL) {
     std::cout << "Face Recognizer: Error input image." << std::endl;

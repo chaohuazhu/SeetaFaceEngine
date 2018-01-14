@@ -28,7 +28,9 @@
  * Note: the above information must be kept whenever or wherever the codes are used.
  *
  */
-
+#include <windows.h>
+#include<iostream>
+using namespace std;
 #include "tform_maker_net.h"
 #include "spatial_transform_net.h"
 #include "aligner.h"
@@ -139,6 +141,7 @@ void Aligner::Alignment(const ImageData &src_img,
     Blob* const dst_blob) {
   Blob* const input_data = net_->input_blobs(1);
   input_data->reshape(1, src_img.num_channels, src_img.height, src_img.width);
+  cout << "Alignment input " << "height:" << src_img.height << " width:" << src_img.width << endl;
   input_data->SetData();
   // input with mat::data avoid coping data
   memcpy(input_data->data().get(), src_img.data, input_data->count() * sizeof(unsigned char));

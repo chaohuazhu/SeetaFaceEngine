@@ -64,6 +64,10 @@ using namespace std;
 
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp> 
+#include <opencv2/imgcodecs/imgcodecs.hpp>
+using namespace cv;
 
 #include "face_identification.h"
 #include "common.h"
@@ -106,6 +110,7 @@ void TEST(FaceRecognizerTest, CropFace) {
   while (ifs >> img_name) {
     img_num ++ ;
     // read image
+	std::cout << "cropFace: " << img_num << test_dir + img_name << std::endl;
     cv::Mat src_img = cv::imread(test_dir + img_name, 1);
     EXPECT_NE(src_img.data, nullptr) << "Load image error!";
 
@@ -191,6 +196,7 @@ void TEST(FaceRecognizerTest, ExtractFeature) {
     float* feat1 = feat_caffe + img_num * feat_size;
     float* feat2 = feat_sdk + img_num * feat_size;
     float sim = face_recognizer.CalcSimilarity(feat1, feat2);
+	std::cout << "similarity: " << sim << std::endl;
     average_sim += sim;
     img_num ++ ;
   }
@@ -264,6 +270,7 @@ void TEST(FaceRecognizerTest, ExtractFeatureWithCrop) {
     float* feat1 = feat_caffe + img_num * feat_size;
     float* feat2 = feat_sdk + img_num * feat_size;
     float sim = face_recognizer.CalcSimilarity(feat1, feat2);
+	std::cout << "similarity: " << sim << std::endl;
     average_sim += sim;
     img_num ++ ;
   }

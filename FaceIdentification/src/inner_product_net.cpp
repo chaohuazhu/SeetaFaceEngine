@@ -31,7 +31,8 @@
 
 #include "inner_product_net.h"
 #include "math_functions.h"
-
+#include <iostream>
+using namespace std;
 void InnerProductNet::SetUp() {
   // check input and output blob size
   this->input_blobs().resize(1);
@@ -55,6 +56,8 @@ void InnerProductNet::Execute() {
   
   LOG(DEBUG) << "input blob: (" <<src_num << "," << src_channels << "," << src_h 
     << "," << src_w << ")";
+  cout << "ip: " << "input blob: (" << src_num << "," << src_channels << "," << src_h
+	  << "," << src_w << ")" << endl;
 
   const int vec_len = src_channels * src_h * src_w;
   float* const dst_head = new float[src_num * dst_channels];
@@ -73,6 +76,8 @@ void InnerProductNet::Execute() {
   delete[] dst_head;
   LOG(DEBUG) << "output blob: (" << output->num() << "," << output->channels() 
     << "," << output->height() << "," << output->width() << ")";
+  cout << "ip¡êo" << "output blob: (" << output->num() << "," << output->channels()
+	  << "," << output->height() << "," << output->width() << ")" <<endl;
   CheckOutput();
 }
 
