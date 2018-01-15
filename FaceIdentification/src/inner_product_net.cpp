@@ -76,7 +76,7 @@ void InnerProductNet::Execute() {
   delete[] dst_head;
   LOG(DEBUG) << "output blob: (" << output->num() << "," << output->channels() 
     << "," << output->height() << "," << output->width() << ")";
-  cout << "ip¡êo" << "output blob: (" << output->num() << "," << output->channels()
+  cout << "ip: " << "output blob: (" << output->num() << "," << output->channels()
 	  << "," << output->height() << "," << output->width() << ")" <<endl;
   CheckOutput();
 }
