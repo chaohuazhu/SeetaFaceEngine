@@ -81,7 +81,7 @@ std::shared_ptr<Net> CommonNet::Load(FILE* file) {
 		<< param.channels() << "," << param.height() << "," << param.width() << ")" << endl;
     net->params(i)->SetData(param);
   }
-
+  
   int num_subnet = net->nets().size();
   int num_in = net->input_blobs().size();
   int num_out = net->output_blobs().size();

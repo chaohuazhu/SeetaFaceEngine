@@ -134,10 +134,10 @@ void TEST(FaceRecognizerTest, CropFace) {
     start = clock();
     face_recognizer.CropFace(src_img_data, pt5, dst_img_data);
     count += clock() - start;
-    // Show crop face
-    //    cv::imshow("Crop Face", dst_img);
-    //    cv::waitKey(0);
-    //    cv::destroyWindow("Crop Face");
+    // show crop face
+        //cv::imshow("crop face", dst_img);
+        //cv::waitKey(0);
+        //cv::destroyWindow("crop face");
   }
   ifs.close();
   std::cout << "Test successful! \nAverage crop face time: "

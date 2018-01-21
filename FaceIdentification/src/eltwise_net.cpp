@@ -92,27 +92,27 @@ void EltwiseNet::Execute() {
 	cout << "eltwise: " << "bias blob: (" << bias->num() << "," << bias->channels()
 		<< "," << bias->height() << "," << bias->width() << ")" << endl;
 
-	{
-		char* const char_dst_head = new char[num*channels*height*width];
+	//{
+	//	char* const char_dst_head = new char[num*channels*height*width];
 
-		int bn = (bias->num() != 1);
-		int bc = (bias->channels() != 1);
-		int bh = (bias->height() != 1);
-		int bw = (bias->width() != 1);
-		for (int n = 0, offset = 0; n < num; ++n) {
-			for (int c = 0; c < channels; ++c) {
-				for (int h = 0; h < height; ++h) {
-					for (int w = 0; w < width; ++w, ++offset) {
-						char_dst_head[offset] = (*bias)[bias->offset(n*bn, c*bc, h*bh, w*bw)];
-					}
-				}
-			}
-		}
-		std::ofstream fout("a.dat", std::ios::binary);
-		fout.write(char_dst_head, sizeof(char) * (num*channels*height*width));
-		fout.close();
-		exit(0);
-	}
+	//	int bn = (bias->num() != 1);
+	//	int bc = (bias->channels() != 1);
+	//	int bh = (bias->height() != 1);
+	//	int bw = (bias->width() != 1);
+	//	for (int n = 0, offset = 0; n < num; ++n) {
+	//		for (int c = 0; c < channels; ++c) {
+	//			for (int h = 0; h < height; ++h) {
+	//				for (int w = 0; w < width; ++w, ++offset) {
+	//					char_dst_head[offset] = (*bias)[bias->offset(n*bn, c*bc, h*bh, w*bw)];
+	//				}
+	//			}
+	//		}
+	//	}
+	//	std::ofstream fout("a.dat", std::ios::binary);
+	//	fout.write(char_dst_head, sizeof(char) * (num*channels*height*width));
+	//	fout.close();
+	//	exit(0);
+	//}
 
 	float* const dst_head = new float[num*channels*height*width];
 
@@ -120,6 +120,13 @@ void EltwiseNet::Execute() {
     int bc = (bias->channels() != 1);
     int bh = (bias->height() != 1);
     int bw = (bias->width() != 1);
+	cout << "eltwise: " << "bn,bc,bh,bw " << bn << "," << bc << ","<< bh << "," << bw << endl;
+	if (!bh) {
+		for (int c = 0; c < bias->channels(); c++) {
+			cout << (*bias)[bias->offset(0, c, 0, 0)] << ",";
+		}
+		cout << endl;
+	}
     for (int n = 0, offset = 0; n < num; ++n) {
       for (int c = 0; c < channels; ++ c) {
         for (int h = 0; h < height; ++ h) {
