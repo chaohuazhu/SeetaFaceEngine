@@ -207,13 +207,18 @@ void getAllFiles(string path, string lpath, vector<string>& files) {
 int halfimage(string path) {
 	//cvNamedWindow("Imgae Before Processing");
 	//cvNamedWindow("Image After Processing"); 
-	IplImage * in = cvLoadImage((SrcPath + "/" + path).c_str(), 1);  
+	//IplImage * in = cvLoadImage((SrcPath + "/" + path).c_str(), 1);  
+	cout << path << endl;
+	IplImage * in = cvLoadImage((path).c_str(), 1);
 	IplImage * out = cvCreateImage(cvSize(in->width / 2, in->height / 2), in->depth, in->nChannels);
 	IplImage* img_show = cvCloneImage(in);
-	cvPyrDown(in, out);
-	cvSetImageROI(out, cvRect(16, 8, 96, 112));
-	cvSaveImage((DstPath + "/" + path).c_str(), out);
-	cvResetImageROI(out); 
+	//cvPyrDown(in, out);
+	//cvSetImageROI(out, cvRect(16, 8, 96, 112));
+	//cvSaveImage((DstPath + "/" + path).c_str(), out);
+	cvSetImageROI(in, cvRect(0, 0, 96, 112));
+	cout << "strip.jpg" << endl;
+	cvSaveImage((string("strip.jpg")).c_str(), in);
+	cvResetImageROI(out);
 	//cvShowImage("Imgae Before Processing", in);
 	//cvShowImage("Imgae After Processing", out); 
 	cvReleaseImage(&in);
@@ -367,19 +372,19 @@ int main(int argc, char* argv[]) {
   //binary_image_show();
   //return 0;
 
-  mean_image_show();
-  return 0;
+  //mean_image_show();
+  //return 0;
 
-  createFilesList(DstPath, "", 0, files);
-  cout << files.size() << endl;
-  ofstream ofile;
-  ofile.open("caisa_all.txt");
-  for (int i = 0; i < files.size(); i++)
-  {
-	  ofile << files[i].c_str() << endl;
-  }
-  ofile.close();
-  return 0;
+  //createFilesList(DstPath, "", 0, files);
+  //cout << files.size() << endl;
+  //ofstream ofile;
+  //ofile.open("caisa_all.txt");
+  //for (int i = 0; i < files.size(); i++)
+  //{
+	 // ofile << files[i].c_str() << endl;
+  //}
+  //ofile.close();
+  //return 0;
 
   ////seq_label = 0;
   ////seq_file = 0;

@@ -40,7 +40,8 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
-
+#include <iostream>
+using namespace std;
 namespace seeta {
 class FaceIdentification::Recognizer {
 public:
@@ -54,6 +55,7 @@ public:
       feat_size_ = 0;
     } 
     else {
+      cout << "init model" << endl;
 	  crop_width_ = 0;
 	  crop_height_ = 0;
 	  crop_channels_ = 0;
@@ -77,6 +79,7 @@ public:
     CHECK_EQ(fread(&crop_height_, sizeof(int), 1, file), 1);
     CHECK_EQ(fread(&crop_width_, sizeof(int), 1, file), 1);
 	  CHECK_EQ(fread(&feat_size_, sizeof(int), 1, file), 1);
+	  cout << "from model " << crop_channels_ << "," << crop_height_ << "," << crop_width_ << "," << feat_size_ << endl;
     /*if (!aligner_ || crop_height_ != aligner_->CropHeight() 
 		||  crop_width_ != aligner_->CropHeight())*/
     aligner_.reset(new Aligner(crop_height_, crop_width_, "linear"));

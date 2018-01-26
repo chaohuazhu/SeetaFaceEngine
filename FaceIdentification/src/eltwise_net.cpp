@@ -121,12 +121,12 @@ void EltwiseNet::Execute() {
     int bh = (bias->height() != 1);
     int bw = (bias->width() != 1);
 	cout << "eltwise: " << "bn,bc,bh,bw " << bn << "," << bc << ","<< bh << "," << bw << endl;
-	if (!bh) {
-		for (int c = 0; c < bias->channels(); c++) {
-			cout << (*bias)[bias->offset(0, c, 0, 0)] << ",";
-		}
-		cout << endl;
-	}
+	//if (!bh) {
+	//	for (int c = 0; c < bias->channels(); c++) {
+	//		cout << (*bias)[bias->offset(0, c, 0, 0)] << ",";
+	//	}
+	//	cout << endl;
+	//}
     for (int n = 0, offset = 0; n < num; ++n) {
       for (int c = 0; c < channels; ++ c) {
         for (int h = 0; h < height; ++ h) {

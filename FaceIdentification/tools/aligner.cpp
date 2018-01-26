@@ -36,10 +36,13 @@ using namespace std;
 #include "aligner.h"
 
 #include <vector>
+#include <iostream>
+using namespace std;
 namespace seeta {
 Aligner::Aligner():
     crop_height_(256),
     crop_width_(256) {
+	cout << "crop without type" << endl;
   // build a aligner networks
   net_.reset(new CommonNet());
   HyperParam* common_param = net_->hyper_param();
@@ -58,6 +61,7 @@ Aligner::Aligner():
     96.8796, 184.8907,
     159.1065, 184.7601,
   };
+
   HyperParam* tform_param = tform_maker_net->hyper_param();
   tform_param->InsertInt("points_num", 5);
   tform_maker_net->SetUp();
@@ -84,6 +88,7 @@ Aligner::Aligner():
 Aligner::Aligner(int crop_height, int crop_width, std::string type):
     crop_height_(crop_height),
     crop_width_(crop_width) {
+	cout << "crop with type " << endl;
   // build a aligner networks
   net_.reset(new CommonNet());
   HyperParam* common_param = net_->hyper_param();
@@ -106,9 +111,13 @@ Aligner::Aligner(int crop_height, int crop_width, std::string type):
     96.8796, 184.8907,
     159.1065, 184.7601,
   };
+
   for (int i = 0; i < 5; ++ i) {
-    std_points[i * 2] *= crop_height_ / 256.0;
-    std_points[i * 2 + 1] *= crop_width_ / 256.0;
+	  std_points[i * 2] *= /*crop_height_*/ 112 / 256.0;
+	  std_points[i * 2 + 1] *= /*crop_width_*/ 96 / 256.0;
+
+	  std_points[i * 2] -= 9;
+	  std_points[i * 2 + 1] += 15;
   }
   HyperParam* tform_param = tform_maker_net->hyper_param();
   tform_param->InsertInt("points_num", 5);
