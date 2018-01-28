@@ -524,6 +524,7 @@ int main(int argc, char* argv[]) {
 	  cv::Mat gallery_img_crop_color(256, 256, CV_8UC(3));
 	  ImageData gallery_img_data_crop_color(256,256, 3);
 	  gallery_img_data_crop_color.data = gallery_img_crop_color.data;
+
 	  // Detect faces
 	  std::vector<seeta::FaceInfo> gallery_faces = detector.Detect(gallery_img_data_gray);
 	  int32_t gallery_face_num = static_cast<int32_t>(gallery_faces.size());
@@ -555,7 +556,11 @@ int main(int argc, char* argv[]) {
 	  //cv::waitKey(0);
 	  //cv::destroyWindow("crop face");
 
-	  cv::imwrite(DstPath+"/"+files[i], gallery_img_crop_color);
+	  //cv::imwrite(DstPath+"/"+files[i], gallery_img_crop_color);
+
+	  cv::Mat srcROI = gallery_img_crop_color(cv::Rect(0, 0, 96, 112));
+	  cv::imwrite(DstPath + "/" + files[i], srcROI);
+
 	  cout << "11111111116" + DstPath + "/" + files[i] << endl;
 
   }
