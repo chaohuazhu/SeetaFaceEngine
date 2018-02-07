@@ -207,17 +207,16 @@ void getAllFiles(string path, string lpath, vector<string>& files) {
 int halfimage(string path) {
 	//cvNamedWindow("Imgae Before Processing");
 	//cvNamedWindow("Image After Processing"); 
-	//IplImage * in = cvLoadImage((SrcPath + "/" + path).c_str(), 1);  
-	cout << path << endl;
-	IplImage * in = cvLoadImage((path).c_str(), 1);
+	IplImage * in = cvLoadImage((SrcPath + "/" + path).c_str(), 1);  
 	IplImage * out = cvCreateImage(cvSize(in->width / 2, in->height / 2), in->depth, in->nChannels);
 	IplImage* img_show = cvCloneImage(in);
+
 	//cvPyrDown(in, out);
 	//cvSetImageROI(out, cvRect(16, 8, 96, 112));
-	//cvSaveImage((DstPath + "/" + path).c_str(), out);
 	cvSetImageROI(in, cvRect(0, 0, 96, 112));
-	cout << "strip.jpg" << endl;
-	cvSaveImage((string("strip.jpg")).c_str(), in);
+
+	cvSaveImage((DstPath + "/" + path).c_str(), in);
+
 	cvResetImageROI(out);
 	//cvShowImage("Imgae Before Processing", in);
 	//cvShowImage("Imgae After Processing", out); 
@@ -298,7 +297,7 @@ void binary_image_show()
 }
 void mean_image_show()
 {
-	//FILE *fpw = fopen("d:/a.dat", "wb");
+	//FILE *fpw = fopen("a.dat", "wb");
 	//if (fpw == NULL)
 	//{
 	//	cout << "Open error!" << endl;
@@ -375,16 +374,16 @@ int main(int argc, char* argv[]) {
   //mean_image_show();
   //return 0;
 
-  //createFilesList(DstPath, "", 0, files);
-  //cout << files.size() << endl;
-  //ofstream ofile;
-  //ofile.open("caisa_all.txt");
-  //for (int i = 0; i < files.size(); i++)
-  //{
-	 // ofile << files[i].c_str() << endl;
-  //}
-  //ofile.close();
-  //return 0;
+  createFilesList(DstPath, "", 0, files);
+  cout << files.size() << endl;
+  ofstream ofile;
+  ofile.open("lfw_all.txt");
+  for (int i = 0; i < files.size(); i++)
+  {
+	  ofile << files[i].c_str() << endl;
+  }
+  ofile.close();
+  return 0;
 
   ////seq_label = 0;
   ////seq_file = 0;
@@ -402,7 +401,6 @@ int main(int argc, char* argv[]) {
   //}
   //return 0;
 
-  getAllFiles(SrcPath, "", files);
   // Initialize face detection model
   seeta::FaceDetection detector("seeta_fd_frontal_v1.0.bin");
   detector.SetMinFaceSize(40);
@@ -414,8 +412,9 @@ int main(int argc, char* argv[]) {
   // Initialize face Identification model 
   //FaceIdentification face_recognizer((MODEL_DIR + "seeta_fr_v1.0.bin").c_str());
   FaceIdentification face_recognizer("seeta_fr_v1.0.bin");
-  //return 0;
   //std::string test_dir = DATA_DIR + "test_face_recognizer/";
+  
+  //return 0;
 
   ////load image
   ////cv::Mat gallery_img_color = cv::imread(test_dir + "images/src/NF_200003_002.jpg", 1);
@@ -478,19 +477,25 @@ int main(int argc, char* argv[]) {
   //seeta::FacialLandmark probe_points[5];
   //point_detector.PointDetectLandmarks(probe_img_data_gray, probe_faces[0], probe_points);
 
-  //for (int i = 0; i<5; i++)
-  //{
-  //  cv::circle(gallery_img_color, cv::Point(gallery_points[i].x, gallery_points[i].y), 2,
-  //    CV_RGB(0, 255, 0));
-  //  cv::circle(probe_img_color, cv::Point(probe_points[i].x, probe_points[i].y), 2,
-  //    CV_RGB(0, 255, 0));
-  //}
+  ////for (int i = 0; i<5; i++)
+  ////{
+  ////  cv::circle(gallery_img_color, cv::Point(gallery_points[i].x, gallery_points[i].y), 2,
+  ////    CV_RGB(0, 255, 0));
+  ////  cv::circle(probe_img_color, cv::Point(probe_points[i].x, probe_points[i].y), 2,
+  ////    CV_RGB(0, 255, 0));
+  ////}
 
   //face_recognizer.CropFace(gallery_img_data_color, gallery_points, gallery_img_data_crop_color);
   //face_recognizer.CropFace(probe_img_data_color, probe_points, probe_img_data_crop_color);
 
-  //cv::imwrite("gallery_point_result.jpg", gallery_img_crop_color);
-  //cv::imwrite("probe_point_result.jpg", probe_img_crop_color);
+  ////cv::imwrite("gallery_point_result.jpg", gallery_img_crop_color);
+  ////cv::imwrite("probe_point_result.jpg", probe_img_crop_color);
+
+  //cv::Mat srcROI = gallery_img_crop_color(cv::Rect(0, 0, 96, 112));
+  //cv::imwrite("gallery_point_result.jpg", srcROI);
+  //cv::Mat srcROI1 = probe_img_crop_color(cv::Rect(0, 0, 96, 112));
+  //cv::imwrite("probe_point_result.jpg", srcROI1);
+  //return 0;
 
   //// Extract face identity feature
   //float gallery_fea[2048];
@@ -502,8 +507,12 @@ int main(int argc, char* argv[]) {
   //float sim = face_recognizer.CalcSimilarity(gallery_fea, probe_fea);
   //std::cout << sim <<endl;
 
+  ////halfimage("gallery_point_result.jpg");
+  ////halfimage("probe_point_result.jpg");
+
   //return 0;
 
+  getAllFiles(SrcPath, "", files);
   cout << files.size() << endl;
   for (int i = 0; i<files.size(); i++)
   {
@@ -524,7 +533,6 @@ int main(int argc, char* argv[]) {
 	  cv::Mat gallery_img_crop_color(256, 256, CV_8UC(3));
 	  ImageData gallery_img_data_crop_color(256,256, 3);
 	  gallery_img_data_crop_color.data = gallery_img_crop_color.data;
-
 	  // Detect faces
 	  std::vector<seeta::FaceInfo> gallery_faces = detector.Detect(gallery_img_data_gray);
 	  int32_t gallery_face_num = static_cast<int32_t>(gallery_faces.size());
@@ -533,15 +541,18 @@ int main(int argc, char* argv[]) {
 	  {
 		  std::cout << "Faces are not detected.";
 		  //return 0;
+		  ofstream ofile;
+		  ofile.open(DstPath + "/" + files[i]);
+		  ofile.close();
 		  continue;
 	  }
-  cout << "detect face " << gallery_face_num << endl;
-  int max_id = 0;
-  for (int i = 0; i < gallery_face_num; i++) {
-	  if (gallery_faces[i].score >= gallery_faces[max_id].score)
-		  max_id = i;
-	  cout << "face detect score: " << gallery_faces[i].score << endl;
-  }
+      cout << "detect face " << gallery_face_num << endl;
+      int max_id = 0;
+      for (int i = 0; i < gallery_face_num; i++) {
+	      if (gallery_faces[i].score >= gallery_faces[max_id].score)
+		      max_id = i;
+	      cout << "face detect score: " << gallery_faces[i].score << endl;
+      }
 
 	  // Detect 5 facial landmarks
 	  seeta::FacialLandmark gallery_points[5];
