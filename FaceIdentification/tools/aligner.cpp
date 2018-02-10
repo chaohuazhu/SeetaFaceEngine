@@ -116,8 +116,8 @@ Aligner::Aligner(int crop_height, int crop_width, std::string type):
 	  std_points[i * 2] *= /*crop_height_*/ 112 / 256.0;
 	  std_points[i * 2 + 1] *= /*crop_width_*/ 96 / 256.0;
 
-	  std_points[i * 2] -= 9;
-	  std_points[i * 2 + 1] += 15;
+	  std_points[i * 2] -= 6;// 9;
+	  std_points[i * 2 + 1] += 22;// 15;
   }
   HyperParam* tform_param = tform_maker_net->hyper_param();
   tform_param->InsertInt("points_num", 5);
